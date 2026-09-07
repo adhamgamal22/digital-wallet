@@ -14,143 +14,141 @@
   <img src="https://img.shields.io/badge/Maven-Build-C71A36?style=for-the-badge&logo=apachemaven" />
 </p>
 
----
+# 💳 Digital Wallet — Banking & Wallet Platform
 
-## 📌 Overview
+A backend system for digital wallet and financial transaction management, built with a clean layered architecture and modern Spring ecosystem tools.
 
-**Digital Wallet** is a backend REST API designed to simulate the core functionality of a modern digital wallet system.
-
-The project focuses on building a secure, maintainable, and scalable backend using **Spring Boot** and industry-standard backend technologies.
-
-The system is designed around users, wallets, and financial transactions while following a clean layered architecture.
-
----
-
-## 🚀 Features
-
-- 🔐 Secure authentication and authorization
-- 👤 User management
-- 💳 Digital wallet management
-- 💰 Wallet balance management
-- 💸 Transaction processing
-- 🗄️ PostgreSQL database integration
-- ⚡ Redis integration for caching and performance
-- 🔄 Database versioning with Flyway
-- 🛡️ Spring Security integration
-- 🔑 JWT-based authentication
-- 📦 DTO-based API design
-- 🚨 Global exception handling
-- 🧩 Layered architecture
-- 🧪 Unit and integration testing structure
-- 📋 Database migration scripts
-- ⚙️ Environment-based configuration
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![Redis](https://img.shields.io/badge/Redis-Cache-red)
+![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
 
 ---
 
-# 🏗️ Architecture
+## 📖 Overview
 
-The project follows a layered backend architecture:
+This project simulates core digital wallet operations — user authentication, wallet management, and transaction processing — following production-grade backend engineering practices: layered architecture, DTO validation, centralized exception handling, and versioned database migrations.
 
-```text
+---
+
+## 📑 Table of Contents
+
+- [Architecture](#-architecture)
+- [Project Structure](#-project-structure)
+- [Tech Stack](#-tech-stack)
+- [Database Design](#-database-design)
+- [Redis](#-redis)
+- [Security](#-security)
+- [Request Flow](#-request-flow)
+- [Getting Started](#-getting-started)
+- [API](#-api)
+- [Future Improvements](#-future-improvements)
+- [Security Considerations](#-security-considerations)
+- [Design Principles](#-design-principles)
+- [Author](#-author)
+- [License](#-license)
+
+---
+
+## 🏗️ Architecture
+
+The project follows a clean, layered backend architecture:
+
+```
                     ┌─────────────────────┐
-                    │       Client        │
-                    │  Postman / Frontend │
-                    └──────────┬──────────┘
+                    │        Client         │
+                    │  Postman / Frontend   │
+                    └──────────┬────────────┘
                                │
                                ▼
                     ┌─────────────────────┐
-                    │     Controllers     │
-                    │     REST API Layer  │
-                    └──────────┬──────────┘
+                    │     Controllers       │
+                    │     REST API Layer    │
+                    └──────────┬────────────┘
                                │
                                ▼
                     ┌─────────────────────┐
-                    │      Services       │
-                    │   Business Logic    │
-                    └──────────┬──────────┘
+                    │      Services          │
+                    │   Business Logic      │
+                    └──────────┬────────────┘
                                │
                     ┌──────────┴──────────┐
                     ▼                     ▼
           ┌─────────────────┐   ┌─────────────────┐
-          │   Repositories  │   │      Redis      │
-          │   Data Access   │   │      Cache      │
-          └────────┬────────┘   └─────────────────┘
-                   │
-                   ▼
+          │  Repositories     │   │      Redis        │
+          │  Data Access      │   │      Cache        │
+          └────────┬──────────┘   └─────────────────┘
+                    │
+                    ▼
           ┌─────────────────┐
-          │   PostgreSQL    │
-          │    Database     │
+          │   PostgreSQL      │
+          │    Database       │
           └─────────────────┘
+                    ▲
+                    │
+          ┌─────────────────┐
+          │     Flyway          │
+          │ DB Migrations       │
+          └─────────────────┘
+```
 
-                   ▲
-                   │
-          ┌─────────────────┐
-          │     Flyway      │
-          │ DB Migrations   │
-          └─────────────────┘
-📂 Project Structure
+---
+
+## 📂 Project Structure
+
+```
 src/
 ├── main/
 │   ├── java/com/digitalwallet/
+│   │   ├── config/          → Application configuration
+│   │   ├── controller/      → REST API controllers
+│   │   ├── service/         → Business logic layer
+│   │   ├── repository/      → Database repositories
+│   │   ├── entity/          → JPA database entities
+│   │   ├── dto/              → Data Transfer Objects
+│   │   ├── enums/           → Application & transaction enums
+│   │   ├── exception/       → Custom exceptions & global handling
+│   │   ├── util/            → Utility / helper classes
+│   │   └── DigitalWalletApplication.java
 │   │
-│   ├── Config/
-│   │   └── Application configuration
-│   │
-│   ├── Services/
-│   │   └── Business logic and service layer
-│   │
-│   ├── controller/
-│   │   └── REST API controllers
-│   │
-│   ├── dtos/
-│   │   └── Data Transfer Objects
-│   │
-│   ├── entity/
-│   │   └── JPA database entities
-│   │
-│   ├── enums/
-│   │   └── Application and transaction enums
-│   │
-│   ├── exception/
-│   │   └── Custom exceptions and exception handling
-│   │
-│   ├── repository/
-│   │   └── Database repositories
-│   │
-│   ├── util/
-│   │   └── Utility and helper classes
-│   │
-│   └── DigitalWalletApplication.java
-│
-├── resources/
-│   └── db/
-│       └── migration/
+│   └── resources/
+│       └── db/migration/
 │           ├── V1__create_users_table.sql
 │           ├── V2__create_wallets_table.sql
 │           └── V3__create_transactions_table.sql
 │
 └── test/
     └── java/com/digitalwallet/
-🛠️ Tech Stack
-Technology	Purpose
-☕ Java	Programming Language
-🌱 Spring Boot	Backend Framework
-🔐 Spring Security	Authentication & Authorization
-🔑 JWT	Token-Based Authentication
-🐘 PostgreSQL	Relational Database
-⚡ Redis	Caching / Fast Data Access
-🔄 Flyway	Database Migration
-🗃️ Spring Data JPA	Database Access
-📦 Maven	Dependency Management
-🧪 JUnit	Testing
-🐳 Docker	Containerization
-🗄️ Database Design
+```
 
-The application uses PostgreSQL as the primary relational database.
+> Note: package names normalized to lowercase (`config`, `service`, `dto`) to follow standard Java conventions.
 
-Database schema evolution is managed using Flyway migrations.
+---
 
-Current migrations
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| ☕ Java 17 | Core programming language |
+| 🌱 Spring Boot | Application framework |
+| 🔐 Spring Security | Authentication & authorization |
+| 🔑 JWT | Stateless token-based auth |
+| 🐘 PostgreSQL | Primary relational database |
+| ⚡ Redis | Caching / fast in-memory access |
+| 🔄 Flyway | Database migration management |
+| 🗃️ Spring Data JPA | ORM / database access |
+| 📦 Maven | Dependency & build management |
+| 🧪 JUnit | Unit & integration testing |
+| 🐳 Docker | Containerization |
+
+---
+
+## 🗄️ Database Design
+
+PostgreSQL is the primary data store. Schema evolution is fully managed via **Flyway migrations**, applied in order:
+
+```
 V1__create_users_table.sql
         │
         ▼
@@ -158,112 +156,92 @@ V2__create_wallets_table.sql
         │
         ▼
 V3__create_transactions_table.sql
+```
 
-This approach ensures that database changes are:
+This guarantees database changes are:
+- ✅ Version controlled
+- ✅ Repeatable
+- ✅ Trackable
+- ✅ Consistent across environments
 
-Version controlled
-Repeatable
-Trackable
-Consistent across environments
-⚡ Redis
+---
 
-Redis is integrated into the application to provide fast in-memory data access.
+## ⚡ Redis
 
-Potential use cases include:
+Redis provides fast in-memory data access alongside PostgreSQL, used for:
 
-Caching frequently accessed data
-Reducing database load
-Improving API response time
-Temporary data storage
-Authentication/session-related use cases
+- Caching frequently accessed data
+- Reducing database load
+- Improving API response time
+- Temporary/session-related data storage
 
-Redis is used as a supporting infrastructure component while PostgreSQL remains the primary persistent database.
+Redis is a **supporting cache layer** — PostgreSQL remains the source of truth for persisted data.
 
-🔐 Security
+---
 
-The application uses Spring Security to secure backend resources.
+## 🔐 Security
 
-Authentication is based on JWT (JSON Web Tokens).
+Authentication is handled via **Spring Security + JWT**:
 
-The general authentication flow is:
-
+```
 Client
-   │
-   │ Login
-   ▼
-Authentication API
-   │
-   ▼
-Validate Credentials
-   │
-   ▼
-Generate JWT
-   │
-   ▼
-Return Token
-   │
-   ▼
-Client
-   │
-   │ Authorization: Bearer <JWT>
-   ▼
-Protected API
-   │
-   ▼
-Spring Security
-   │
-   ▼
-Controller
-🔄 Request Flow
+  │  Login (credentials)
+  ▼
+Authentication API → Validate Credentials → Generate JWT → Return Token
+  │
+  │  Authorization: Bearer <JWT>
+  ▼
+Protected API → Spring Security Filter → Controller
+```
 
-A typical request follows this architecture:
+---
 
+## 🔄 Request Flow
+
+```
 HTTP Request
      │
      ▼
-Controller
+Controller  →  DTO Validation  →  Service Layer (Business Logic)
      │
      ▼
-DTO Validation
+Repository  →  PostgreSQL
      │
      ▼
-Service Layer
-     │
-     ▼
-Business Logic
-     │
-     ▼
-Repository
-     │
-     ▼
-PostgreSQL
-     │
-     ▼
-Response DTO
-     │
-     ▼
-HTTP Response
+Response DTO  →  HTTP Response
+```
 
-This separation keeps the application maintainable and makes individual layers easier to test.
+This separation keeps each layer independently testable and maintainable.
 
-⚙️ Configuration
+---
 
-Sensitive configuration values are intentionally excluded from Git.
+## 🧑‍💻 Getting Started
 
-Examples include:
+### 1. Clone the repository
+```bash
+git clone https://github.com/adhamgamal22/digital-wallet.git
+cd digital-wallet
+```
 
-Database credentials
-Redis credentials
-JWT secrets
-Environment variables
-Local configuration
+### 2. Requirements
+- Java 17
+- Maven
+- PostgreSQL
+- Redis
+- Git
 
-The project uses environment-specific configuration files.
+### 3. Create the PostgreSQL database
+```sql
+CREATE DATABASE digital_wallet;
+```
 
-Example configuration
+### 4. Start Redis
+Ensure Redis is running on `localhost:6379`.
 
-Create your local configuration with values appropriate for your environment.
+### 5. Configure the application
+Create your local `application-local.yml` (or `.env`) with:
 
+```yaml
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/digital_wallet
@@ -275,151 +253,113 @@ spring:
       host: localhost
       port: 6379
 
-⚠️ Never commit real passwords, API keys, JWT secrets, or other sensitive credentials to GitHub.
+jwt:
+  secret: YOUR_JWT_SECRET
+  expiration: 3600000
+```
 
-🧑‍💻 Getting Started
-1. Clone the repository
-git clone https://github.com/adhamgamal22/digital-wallet.git
-cd digital-wallet
-2. Requirements
+> ⚠️ Never commit real passwords, API keys, or JWT secrets to Git.
 
-Make sure you have the following installed:
-
-Java 17
-Maven
-PostgreSQL
-Redis
-Git
-
-
-3. Create PostgreSQL Database
-
-Create a database named:
-
-digital_wallet
-
-Example:
-
-CREATE DATABASE digital_wallet;
-4. Start Redis
-
-Make sure Redis is running on:
-
-localhost:6379
-5. Configure the Application
-
-Create your local configuration and provide:
-
-PostgreSQL URL
-PostgreSQL username
-PostgreSQL password
-Redis host
-Redis port
-JWT secret
-
-Do not commit sensitive values.
-
-6. Run the Application
-
-Using Maven Wrapper:
-
-Linux / macOS
+### 6. Run the application
+```bash
+# Linux / macOS
 ./mvnw spring-boot:run
-Windows
+
+# Windows
 mvnw.cmd spring-boot:run
+```
 
-Or using Maven:
+---
 
-mvn spring-boot:run
+## 📡 API
 
-📡 API
+Base path: `/api/v1`
 
-The application exposes RESTful APIs for core digital wallet operations.
+The API is organized around core resources:
 
-The API is organized around resources such as:
+| Resource | Description |
+|---|---|
+| `/auth` | Registration, login, token issuance |
+| `/users` | User profile management |
+| `/wallets` | Wallet creation & balance operations |
+| `/transactions` | Transaction history & processing |
 
-Authentication
-Users
-Wallets
-Transactions
+> Full endpoint documentation (Swagger/OpenAPI) is planned — see Future Improvements.
 
-Example API structure:
+---
 
-/api/v1
+## 📈 Future Improvements
 
-API endpoints and documentation can be expanded as the project evolves.
+- [ ] Swagger / OpenAPI documentation
+- [ ] Docker Compose environment
+- [ ] Full integration test coverage
+- [ ] Transaction idempotency
+- [ ] Transaction locking & concurrency handling
+- [ ] Rate limiting
+- [ ] Refresh token mechanism
+- [ ] Audit logging
+- [ ] Paginated transaction history
+- [ ] Wallet-to-wallet transfers
+- [ ] Role-based access control (RBAC)
+- [ ] Monitoring & observability (Prometheus & Grafana)
+- [ ] CI/CD pipeline (GitHub Actions)
+- [ ] Production-ready Docker setup
 
-📈 Future Improvements
+---
 
-Planned improvements may include:
+## 🔒 Security Considerations
 
- Swagger / OpenAPI documentation
- Docker Compose environment
- Complete integration test coverage
- Transaction idempotency
- Transaction locking and concurrency handling
- Rate limiting
- Refresh token mechanism
- Audit logging
- Transaction history pagination
- Wallet-to-wallet transfers
- Role-based access control
- Monitoring and observability
- CI/CD pipeline with GitHub Actions
- Production-ready Docker setup
- Prometheus & Grafana monitoring
-🔒 Security Considerations
+Since this project handles financial-like operations, the following are core design priorities:
 
-Because this project deals with financial-like operations, security and consistency are important design considerations.
+- Authentication required on all protected resources
+- Proper authorization checks per endpoint
+- Secure password hashing (BCrypt)
+- JWT validation & expiration handling
+- Strict input validation via DTOs
+- Centralized/global exception handling
+- Transactional integrity for wallet operations
+- Protection against duplicate/replayed transactions
+- Safe handling of concurrent wallet updates
+- No sensitive data committed to Git history
 
-The application should ensure:
+---
 
-Authentication before accessing protected resources
-Proper authorization
-Secure password hashing
-JWT validation
-Input validation
-Global exception handling
-Database transaction management
-Protection against duplicate transactions
-Proper handling of concurrent wallet updates
-No sensitive information in Git history
-🧠 Design Principles
+## 🧠 Design Principles
 
-The project aims to follow common backend engineering principles:
+- Separation of Concerns
+- Single Responsibility Principle
+- Clean Layered Architecture
+- DTO Pattern
+- Repository Pattern
+- Dependency Injection
+- Centralized Exception Handling
+- Versioned Database Migrations
+- Secure Configuration Management
 
-Separation of Concerns
-Single Responsibility Principle
-Clean Layered Architecture
-DTO Pattern
-Repository Pattern
-Dependency Injection
-Centralized Exception Handling
-Database Migration Management
-Secure Configuration Management
-📌 Project Status
+---
 
-🚧 Currently under development
+## 📌 Project Status
 
-The project is being actively developed and additional features, tests, documentation, and infrastructure components will be added over time.
+🚧 **Actively under development.** Features, tests, documentation, and infrastructure are being added incrementally.
 
-👨‍💻 Author
+---
 
-Adham Gamal
+## 👨‍💻 Author
 
+**Adham Gamal**
 Java Backend Developer focused on:
+Java · Spring Boot · Spring Security · PostgreSQL · Redis · DevOps · Fintech Backend Systems
 
-Java
-Spring Boot
-Spring Security
-PostgreSQL
-Redis
-DevOps
-Fintech Backend Systems
-⭐ Support
+[GitHub](https://github.com/adhamgamal22) · [LinkedIn](https://linkedin.com/in/adhamgamal74)
 
-If you find this project useful, consider giving it a ⭐ on GitHub.
+---
 
-📄 License
+## ⭐ Support
 
-This project is currently intended for educational and portfolio purposes.
+If you find this project useful, consider giving it a ⭐ on GitHub — it helps a lot!
+
+---
+
+## 📄 License
+
+This project is currently intended for **educational and portfolio purposes**.
