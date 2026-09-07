@@ -232,7 +232,7 @@ Ensure Redis is running on `localhost:6379`.
 
 
 
-### 6. Run the application
+### 5. Run the application
 ```bash
 # Linux / macOS
 ./mvnw spring-boot:run
