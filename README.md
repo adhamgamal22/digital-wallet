@@ -1,5 +1,7 @@
 # 💳 Digital Wallet
 
+A backend system for digital wallet and financial transaction management, built with a clean layered architecture and modern Spring ecosystem tools.
+
 <p align="center">
   <b>A secure and scalable Digital Wallet REST API built with Spring Boot.</b>
 </p>
@@ -13,16 +15,6 @@
   <img src="https://img.shields.io/badge/Flyway-Migrations-red?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Maven-Build-C71A36?style=for-the-badge&logo=apachemaven" />
 </p>
-
-# 💳 Digital Wallet — Banking & Wallet Platform
-
-A backend system for digital wallet and financial transaction management, built with a clean layered architecture and modern Spring ecosystem tools.
-
-![Java](https://img.shields.io/badge/Java-17-orange)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-![Redis](https://img.shields.io/badge/Redis-Cache-red)
-![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
 
 ---
 
@@ -238,27 +230,7 @@ CREATE DATABASE digital_wallet;
 ### 4. Start Redis
 Ensure Redis is running on `localhost:6379`.
 
-### 5. Configure the application
-Create your local `application-local.yml` (or `.env`) with:
 
-```yaml
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/digital_wallet
-    username: postgres
-    password: YOUR_PASSWORD
-
-  data:
-    redis:
-      host: localhost
-      port: 6379
-
-jwt:
-  secret: YOUR_JWT_SECRET
-  expiration: 3600000
-```
-
-> ⚠️ Never commit real passwords, API keys, or JWT secrets to Git.
 
 ### 6. Run the application
 ```bash
