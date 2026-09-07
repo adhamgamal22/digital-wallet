@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk" />
+  <img src="https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=openjdk" />
   <img src="https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen?style=for-the-badge&logo=springboot" />
   <img src="https://img.shields.io/badge/Spring%20Security-Security-green?style=for-the-badge&logo=springsecurity" />
   <img src="https://img.shields.io/badge/PostgreSQL-Database-blue?style=for-the-badge&logo=postgresql" />
@@ -285,17 +285,13 @@ cd digital-wallet
 
 Make sure you have the following installed:
 
-Java 21+
+Java 17
 Maven
 PostgreSQL
 Redis
 Git
 
-Optional:
 
-Docker
-Docker Compose
-Postman
 3. Create PostgreSQL Database
 
 Create a database named:
@@ -335,15 +331,7 @@ mvnw.cmd spring-boot:run
 Or using Maven:
 
 mvn spring-boot:run
-🧪 Running Tests
 
-Run the test suite using:
-
-./mvnw test
-
-Or:
-
-mvn test
 📡 API
 
 The application exposes RESTful APIs for core digital wallet operations.
@@ -426,7 +414,6 @@ Spring Boot
 Spring Security
 PostgreSQL
 Redis
-Docker
 DevOps
 Fintech Backend Systems
 ⭐ Support
